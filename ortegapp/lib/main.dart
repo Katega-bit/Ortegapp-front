@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/config/locator.dart';
 import 'package:flutter_bloc_authentication/blocs/blocs.dart';
+import 'package:flutter_bloc_authentication/repositories/producto_repository.dart';
 import 'package:flutter_bloc_authentication/services/services.dart';
 import 'package:flutter_bloc_authentication/pages/pages.dart';
 
@@ -46,13 +47,7 @@ class MyApp extends StatelessWidget {
       authBloc..add(SessionExpiredEvent());
       return _instance;
     });
-    /*return MaterialPageRoute<void>(builder: (context) {
-      return BlocProvider<AuthenticationBloc>(create: (context) {
-        final authService = getIt<JwtAuthenticationService>();
-        return AuthenticationBloc(authService)..add(SessionExpiredEvent());
-      }, 
-      child: MyApp(),);
-    });*/
+
   }
 
   MyApp() {
@@ -65,7 +60,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Authentication Demo',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.grey,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
