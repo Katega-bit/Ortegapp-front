@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/blocs/authentication/authentication.dart';
 import 'package:flutter_bloc_authentication/config/locator.dart';
+import 'package:flutter_bloc_authentication/pages/like_page.dart';
 import 'package:flutter_bloc_authentication/pages/producto_page.dart';
+import 'package:flutter_bloc_authentication/pages/profile_page.dart';
 import 'package:flutter_bloc_authentication/repositories/producto_repository.dart';
 import 'package:flutter_bloc_authentication/services/services.dart';
 import '../models/models.dart';
 
 class HomePage extends StatelessWidget {
+  final User user;
 
-  const HomePage({super.key, required User user});
+  const HomePage({super.key, required this.user});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyStatefulWidget(),
+      home: MyStatefulWidget(user: User(),),
     );
   }
 
@@ -22,17 +25,20 @@ class HomePage extends StatelessWidget {
 
 class MyStatefulWidget extends StatefulWidget {
 
-  const MyStatefulWidget({super.key});
+  const MyStatefulWidget({super.key, required User user });
 
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget>{
+
         int _selectedIndex = 0;
 
     List<Widget> _widgetOptions = <Widget>[
         ProductoPage(),
+        LikePage(),
+        ProfilePage(user: User())
       
     ];
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_authentication/pages/producto_detail_page.dart';
 import 'package:flutter_bloc_authentication/repositories/producto_repository.dart';
 import '../blocs/producto/producto_bloc.dart';
+import '../blocs/producto_like/producto_like_bloc.dart';
 import '../models/producto.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +23,17 @@ class _LikeButtonState extends State<LikeButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      
       onTap: () {
         setState(() {
           _postRepository.productoLike(widget.idProducto);
           _isLiked = !_isLiked;
         });
+
       },
       child: Icon(
-        _isLiked ? Icons.favorite : Icons.favorite_border,
-        color: _isLiked ? Colors.red : null,
+        _isLiked ? Icons.delete : Icons.delete,
+        color:  Colors.red,
         size: 30,
       ),
     );
@@ -38,14 +41,14 @@ class _LikeButtonState extends State<LikeButton> {
 }
 
 
-class ProductoPage extends StatelessWidget {
-  const ProductoPage({super.key});
+class LikePage extends StatelessWidget {
+  const LikePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 1;
     return BlocProvider(
-      create: (context) => ProductoBloc(ProductoRepository())..add(ProductoFetched()),
+      create: (context) => ProductoLikeBloc(ProductoRepository())..add(ProductoLikeFetched()),
       child: Main(),
     );
   }
@@ -75,12 +78,12 @@ class _MainState extends State<Main> {
   }
 
     void _onScroll() {
-    if (_isBottom) context.read<ProductoBloc>().add(ProductoFetched());
+    if (_isBottom) context.read<ProductoLikeBloc>().add(ProductoLikeFetched());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductoBloc, ProductoState>(
+    return BlocBuilder<ProductoLikeBloc, ProductoLikeState>(
       builder: (context, state) {
                       return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
@@ -156,9 +159,6 @@ class ProductoItem extends StatelessWidget {
                 margin: EdgeInsets.all(10),
               ),
             ),
-            onTap: () => Navigator.push(context, MaterialPageRoute(
-              builder: (context) => ProductoDetail(producto: 
-              producto))),
             ));
             
   }

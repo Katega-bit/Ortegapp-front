@@ -39,4 +39,33 @@ class ProductoRepository{
     return ProductoList.fromJson(jsonDecode(response.body));
   }
 
+    Future<bool> productoLike(int idPost) async {
+    String? token = _localStorageService.getFromDisk('user_token');
+    String urlLike = "/producto/like/$idPost";
+
+    final response = await http.post(Uri.parse(url_base + urlLike),
+        headers: {'Authorization': 'Bearer $token'}, body: jsonEncode(idPost));
+    print('The status code of your peticion are:');
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 201) return true;
+    return false;
+  }
+
+      Future<ProductoList> fetchProductosLike([int _startIndex = 0]) async {
+    String page = "/melikes/?page=${_startIndex}";
+
+    String? token = _localStorageService.getFromDisk('user_token');
+
+    final response = await http.get(
+      Uri.parse(url_base + page),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    print('aqui');
+    print(response.body);
+    return ProductoList.fromJson(jsonDecode(response.body));
+  }
+
+  
+
 }

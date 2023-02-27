@@ -6,3 +6,4 @@ abstract class ProductoEvent extends Equatable {
 }
 
 class ProductoFetched extends ProductoEvent {}
+

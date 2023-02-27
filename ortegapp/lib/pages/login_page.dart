@@ -111,6 +111,16 @@ class __SignInFormState extends State<_SignInForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                    Padding(
+                      child: Image(image: NetworkImage('https://cdn-icons-png.flaticon.com/512/194/194394.png'),
+                      height: 200,),
+                      padding: EdgeInsets.all(35),
+                    ),
+                    Text('Ortegapp',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
+                      textAlign: TextAlign.center,
+                      
+                    ),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Email address',
@@ -157,6 +167,7 @@ class __SignInFormState extends State<_SignInForm> {
                     child: Text('LOG IN'),
                     onPressed: state is LoginLoading ? () {} : _onLoginButtonPressed,
                   )
+                  
                 ],
               ),
             ),

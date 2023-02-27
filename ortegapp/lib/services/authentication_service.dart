@@ -11,6 +11,8 @@ import 'package:injectable/injectable.dart';
 import 'package:flutter_bloc_authentication/models/models.dart';
 import 'package:flutter_bloc_authentication/repositories/repositories.dart';
 
+import '../models/register.dart';
+
 abstract class AuthenticationService {
   Future<User?> getCurrentUser();
   Future<User> signInWithEmailAndPassword(String email, String password);
@@ -81,5 +83,6 @@ class JwtAuthenticationService extends AuthenticationService {
     print("borrando token");
     await _localStorageService.deleteFromDisk("user_token");
   }
+
 
 }
